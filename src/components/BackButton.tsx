@@ -14,11 +14,7 @@ export function BackButton({ fallbackHref = '/games' }: BackButtonProps) {
       type="button"
       className="back-btn"
       onClick={() => {
-        if (window.history.length > 1) {
-          router.back();
-        } else {
-          router.push(fallbackHref);
-        }
+        router.push(fallbackHref);
       }}
     >
       ← Back
