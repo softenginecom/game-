@@ -16,6 +16,15 @@ export function GameModal({ game, games, topFavoriteSlugs, onSelectGame, onClose
   if (!game) {
     return null;
   }
+  const iframeSrc = (() => {
+    try {
+      const url = new URL(game.embedUrl);
+      url.searchParams.set('gd_sdk_referrer_url', window.location.href);
+      return url.toString();
+    } catch {
+      return game.embedUrl;
+    }
+  })();
 
   const similarGames = useMemo(() => {
     const currentTags = new Set(game.tags);
@@ -77,7 +86,7 @@ export function GameModal({ game, games, topFavoriteSlugs, onSelectGame, onClose
 
         <div className="modal-embed">
           <iframe
-            src={game.embedUrl}
+            src={iframeSrc}
             title={game.title}
             loading="lazy"
             allow="autoplay; fullscreen; gamepad"

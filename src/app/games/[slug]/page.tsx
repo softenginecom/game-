@@ -54,6 +54,8 @@ export default async function GameDetailPage({ params }: GameDetailPageProps) {
   const topFavoriteSlugs = new Set(getPopularGames(games, 5).map((item) => item.slug));
   const currentTags = new Set(game.tags);
   const seoBody = buildGameSeoText(game);
+  const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://example.com').replace(/\/$/, '');
+  const gamePageUrl = `${siteUrl}/games/${game.slug}/`;
 
   const similarGames = games
     .filter((item) => item.slug !== game.slug)
@@ -87,7 +89,7 @@ export default async function GameDetailPage({ params }: GameDetailPageProps) {
 
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
 
-        <GamePlayerSection title={game.title} embedUrl={game.embedUrl} />
+        <GamePlayerSection title={game.title} embedUrl={game.embedUrl} referrerUrl={gamePageUrl} />
         <AdSlot slot="1000000011" label="In-Game Banner Ad" className="ad-slot--banner" />
 
         <section className="detail-section detail-head-row">

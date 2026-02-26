@@ -1,14 +1,27 @@
-﻿'use client';
+'use client';
 
-import { useRef } from 'react';
+import { useMemo, useRef } from 'react';
 
 type GamePlayerSectionProps = {
   title: string;
   embedUrl: string;
+  referrerUrl: string;
 };
 
-export function GamePlayerSection({ title, embedUrl }: GamePlayerSectionProps) {
+function withSdkReferrerUrl(embedUrl: string, referrerUrl: string): string {
+  try {
+    const url = new URL(embedUrl);
+    url.searchParams.set('gd_sdk_referrer_url', referrerUrl);
+    return url.toString();
+  } catch {
+    const separator = embedUrl.includes('?') ? '&' : '?';
+    return `${embedUrl}${separator}gd_sdk_referrer_url=${encodeURIComponent(referrerUrl)}`;
+  }
+}
+
+export function GamePlayerSection({ title, embedUrl, referrerUrl }: GamePlayerSectionProps) {
   const shellRef = useRef<HTMLDivElement | null>(null);
+  const iframeSrc = useMemo(() => withSdkReferrerUrl(embedUrl, referrerUrl), [embedUrl, referrerUrl]);
 
   const toggleFullscreen = async () => {
     const node = shellRef.current;
@@ -38,7 +51,7 @@ export function GamePlayerSection({ title, embedUrl }: GamePlayerSectionProps) {
 
         <div className="player-frame-wrap">
           <iframe
-            src={embedUrl}
+            src={iframeSrc}
             title={title}
             loading="lazy"
             allow="autoplay; fullscreen; gamepad"
