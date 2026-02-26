@@ -3,30 +3,31 @@ import type { ReactNode } from 'react';
 import Script from 'next/script';
 import './globals.css';
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://example.com';
+const siteUrl = 'https://2playerunblocked.netlify.app';
 const adsenseClient = process.env.NEXT_PUBLIC_ADSENSE_CLIENT;
 
 export const metadata: Metadata = {
   title: {
-    default: '2Player Unblocked',
+    default: '2 Player Unblocked Games - Free Online 2 Player Browser Games',
     template: '%s | 2Player Unblocked'
   },
-  description: 'Play unblocked HTML5 multiplayer games instantly. Fast loading, no install, browser-ready.',
+  description: 'Play free 2 player unblocked games online. Challenge your friends in browser with no download. Best unblocked games for school and home.',
   metadataBase: new URL(siteUrl),
   alternates: {
     canonical: '/'
   },
+  keywords: ['2 player unblocked games', 'unblocked games', '2 player browser game', 'play online', 'free browser games'],
   openGraph: {
     type: 'website',
     url: siteUrl,
     siteName: '2Player Unblocked',
-    title: '2Player Unblocked',
-    description: 'Play unblocked HTML5 multiplayer games instantly. Fast loading, no install, browser-ready.'
+    title: '2 Player Unblocked Games - Free Online 2 Player Browser Games',
+    description: 'Play free 2 player unblocked games online. Challenge your friends in browser with no download. Best unblocked games for school and home.'
   },
   twitter: {
     card: 'summary_large_image',
-    title: '2Player Unblocked',
-    description: 'Play unblocked HTML5 multiplayer games instantly. Fast loading, no install, browser-ready.'
+    title: '2 Player Unblocked Games - Free Online 2 Player Browser Games',
+    description: 'Play free 2 player unblocked games online. Challenge your friends in browser with no download. Best unblocked games for school and home.'
   },
   robots: {
     index: true,

@@ -5,6 +5,7 @@ import { AdSlot } from '@/components/AdSlot';
 import { BackButton } from '@/components/BackButton';
 import { GamePlayerSection } from '@/components/GamePlayerSection';
 import { games, getGameBySlug, getGamePlays, getPopularGames } from '@/data/games';
+import { buildGameSeoContent } from '@/lib/gameSeoContent';
 import { buildGameSeoText } from '@/lib/seoTemplate';
 
 type GameDetailPageProps = {
@@ -31,6 +32,7 @@ export async function generateMetadata({ params }: GameDetailPageProps): Promise
   return {
     title: `${game.title} - Play Unblocked 2 Player Game Online`,
     description: game.description,
+    keywords: ['unblocked', '2 player', 'browser game', 'play online', game.title, game.category],
     alternates: {
       canonical: `/games/${game.slug}`
     },
@@ -39,6 +41,11 @@ export async function generateMetadata({ params }: GameDetailPageProps): Promise
       description: game.description,
       url: `/games/${game.slug}`,
       type: 'article'
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${game.title} - Play Unblocked 2 Player Game Online`,
+      description: game.description
     }
   };
 }
@@ -54,7 +61,7 @@ export default async function GameDetailPage({ params }: GameDetailPageProps) {
   const topFavoriteSlugs = new Set(getPopularGames(games, 5).map((item) => item.slug));
   const currentTags = new Set(game.tags);
   const seoBody = buildGameSeoText(game);
-  const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://example.com').replace(/\/$/, '');
+  const siteUrl = 'https://2playerunblocked.netlify.app';
   const gamePageUrl = `${siteUrl}/games/${game.slug}/`;
 
   const similarGames = games
@@ -68,6 +75,9 @@ export default async function GameDetailPage({ params }: GameDetailPageProps) {
     .sort((a, b) => b.score - a.score || getGamePlays(b.item.slug) - getGamePlays(a.item.slug))
     .slice(0, 10)
     .map(({ item }) => item);
+
+  const moreGames = similarGames.slice(0, 6);
+  const seoContent = buildGameSeoContent(game, moreGames.map((item) => item.title));
 
   const structuredData = {
     '@context': 'https://schema.org',
@@ -106,8 +116,8 @@ export default async function GameDetailPage({ params }: GameDetailPageProps) {
 
             <h2 className="detail-subtitle">Instruction</h2>
             <ul className="modal-list">
-              {game.controls.map((control) => (
-                <li key={control}>{control}</li>
+              {game.controls.map((control, index) => (
+                <li key={`instruction-${index}-${control}`}>{control}</li>
               ))}
             </ul>
           </div>
@@ -121,6 +131,49 @@ export default async function GameDetailPage({ params }: GameDetailPageProps) {
                 <img src={item.image} alt={item.title} loading="lazy" className="similar-thumb" />
                 <span className="similar-title">{item.title}</span>
               </Link>
+            ))}
+          </div>
+        </section>
+
+        <section className="detail-section">
+          <h2 className="detail-subtitle">More 2 Player Games</h2>
+          <div className="similar-grid">
+            {moreGames.map((item) => (
+              <Link key={`more-${item.slug}`} href={`/games/${item.slug}`} className="similar-card">
+                <img src={item.image} alt={item.title} loading="lazy" className="similar-thumb" />
+                <span className="similar-title">{item.title}</span>
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        <section className="detail-section seo-content">
+          <h1>{game.title} Unblocked - Free 2 Player Game</h1>
+          <p>{seoContent.intro}</p>
+
+          <h2>How to Play</h2>
+          <p>{seoContent.howToPlay}</p>
+
+          <h2>Game Controls</h2>
+          <ul className="modal-list">
+            {game.controls.map((control, index) => (
+              <li key={`seo-${index}-${control}`}>{control}</li>
+            ))}
+          </ul>
+
+          <h2>Why This Game Is Fun</h2>
+          <p>{seoContent.whyFun}</p>
+
+          <h2>Tips and Strategy</h2>
+          <p>{seoContent.tips}</p>
+
+          <h2>FAQ</h2>
+          <div className="seo-faq">
+            {seoContent.faqs.map((faq) => (
+              <article key={faq.question} className="seo-faq-item">
+                <h3>{faq.question}</h3>
+                <p>{faq.answer}</p>
+              </article>
             ))}
           </div>
         </section>

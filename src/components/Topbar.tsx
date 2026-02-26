@@ -1,5 +1,7 @@
 'use client';
 
+import Link from 'next/link';
+
 type TopbarProps = {
   value: string;
   onChange: (value: string) => void;
@@ -9,7 +11,9 @@ export function Topbar({ value, onChange }: TopbarProps) {
   return (
     <header className="topbar">
       <div className="topbar-inner">
-        <div className="logo">2Player Unblocked</div>
+        <Link href="/" className="logo" aria-label="Go to homepage">
+          2Player Unblocked
+        </Link>
         <div className="search-wrap">
           <span className="search-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" width="16" height="16">

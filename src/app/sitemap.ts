@@ -1,10 +1,11 @@
 import type { MetadataRoute } from 'next';
+import { blogPosts } from '@/data/blogPosts';
 import { gameStats, games } from '@/data/games';
 
 export const dynamic = 'force-static';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://example.com';
+  const baseUrl = 'https://2playerunblocked.netlify.app';
   const fallbackDate = new Date('2026-02-26T00:00:00.000Z');
 
   const gameUrls = games.map((game) => ({
@@ -14,6 +15,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       : fallbackDate,
     changeFrequency: 'weekly' as const,
     priority: 0.8
+  }));
+
+  const blogUrls = blogPosts.map((post) => ({
+    url: `${baseUrl}/blog/${post.slug}`,
+    lastModified: fallbackDate,
+    changeFrequency: 'monthly' as const,
+    priority: 0.7
   }));
 
   return [
@@ -29,6 +37,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'daily',
       priority: 0.9
     },
+    {
+      url: `${baseUrl}/blog`,
+      lastModified: fallbackDate,
+      changeFrequency: 'weekly',
+      priority: 0.8
+    },
+    ...blogUrls,
     ...gameUrls
   ];
 }

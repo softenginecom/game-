@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 export type SidebarFilter = 'all' | 'new' | 'favorite';
 
 const items: Array<{ id: SidebarFilter; label: string }> = [
@@ -51,6 +53,16 @@ export function Sidebar({ active = 'all', onSelect }: SidebarProps) {
             <span className="sidebar-label">{item.label}</span>
           </button>
         ))}
+
+        <Link href="/blog" aria-label="Blog" className="sidebar-item blog-item">
+          <span className="sidebar-icon">
+            <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+              <path d="M6 4h9l3 3v13H6z" fill="none" stroke="currentColor" strokeWidth="1.8" />
+              <path d="M15 4v3h3M9 11h6M9 15h6" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+            </svg>
+          </span>
+          <span className="sidebar-label">Blog</span>
+        </Link>
       </div>
     </aside>
   );

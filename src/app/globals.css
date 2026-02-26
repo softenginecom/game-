@@ -105,20 +105,20 @@ input {
 }
 
 .sidebar-icon {
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
 }
 
 .sidebar-icon svg {
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
 }
 
 .sidebar-label {
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1;
 }
 
@@ -381,15 +381,15 @@ input {
 
 .similar-grid {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 10px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
 }
 
 .similar-card {
   border: 1px solid var(--border);
   background: var(--panel2);
   border-radius: 10px;
-  padding: 6px;
+  padding: 8px;
   cursor: pointer;
   text-align: left;
   color: var(--text);
@@ -404,10 +404,10 @@ input {
 }
 
 .similar-title {
-  margin-top: 6px;
+  margin-top: 8px;
   display: block;
-  font-size: 12px;
-  line-height: 1.3;
+  font-size: 14px;
+  line-height: 1.4;
 }
 
 .frame-wrap {
@@ -643,4 +643,75 @@ input {
   font-size: 12px;
   letter-spacing: 0.02em;
   color: #c5b7ff;
+}
+
+.seo-content {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--panel);
+  padding: 16px;
+}
+
+.seo-content h1 {
+  margin: 0 0 10px;
+  font-size: 26px;
+  line-height: 1.25;
+}
+
+.seo-content h2 {
+  margin: 16px 0 8px;
+  font-size: 20px;
+}
+
+.seo-content h3 {
+  margin: 0 0 6px;
+  font-size: 16px;
+}
+
+.seo-content p {
+  margin: 0 0 10px;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.seo-faq {
+  display: grid;
+  gap: 10px;
+}
+
+.seo-faq-item {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--panel2);
+  padding: 10px;
+}
+
+.seo-faq-item p {
+  margin: 0;
+}
+.blog-item {
+  color: #93c5fd;
+}
+
+.blog-item:hover {
+  color: #dbeafe;
+}
+
+.blog-card-image {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  display: block;
+}
+
+.blog-hero-image {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  margin: 0 0 12px;
+  display: block;
 }
