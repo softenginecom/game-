@@ -1,6 +1,7 @@
 import Link from 'next/link';
 
 export type SidebarFilter = 'all' | 'new' | 'favorite';
+type SidebarActive = SidebarFilter | 'blog';
 
 const items: Array<{ id: SidebarFilter; label: string }> = [
   { id: 'all', label: 'All' },
@@ -9,7 +10,7 @@ const items: Array<{ id: SidebarFilter; label: string }> = [
 ];
 
 type SidebarProps = {
-  active?: SidebarFilter;
+  active?: SidebarActive;
   onSelect: (filter: SidebarFilter) => void;
 };
 
@@ -54,7 +55,11 @@ export function Sidebar({ active = 'all', onSelect }: SidebarProps) {
           </button>
         ))}
 
-        <Link href="/blog" aria-label="Blog" className="sidebar-item blog-item">
+        <Link
+          href="/blog"
+          aria-label="Blog"
+          className={`sidebar-item blog-item ${active === 'blog' ? 'active' : ''}`}
+        >
           <span className="sidebar-icon">
             <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
               <path d="M6 4h9l3 3v13H6z" fill="none" stroke="currentColor" strokeWidth="1.8" />

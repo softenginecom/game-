@@ -21,6 +21,13 @@ export function GameGrid({ games, seoHeading, seoText }: GameGridProps) {
   const [page, setPage] = useState(1);
   const pageSize = 100;
 
+  useEffect(() => {
+    const urlFilter = new URLSearchParams(window.location.search).get('filter');
+    if (urlFilter === 'all' || urlFilter === 'new' || urlFilter === 'favorite') {
+      setFilter(urlFilter);
+    }
+  }, []);
+
   const topFavoriteSlugs = useMemo(() => {
     return new Set(getPopularGames(games, 5).map((game) => game.slug));
   }, [games]);

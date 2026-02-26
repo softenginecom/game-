@@ -124,18 +124,6 @@ export default async function GameDetailPage({ params }: GameDetailPageProps) {
         </section>
 
         <section className="detail-section">
-          <h2 className="detail-subtitle">Similar Games</h2>
-          <div className="similar-grid">
-            {similarGames.map((item) => (
-              <Link key={item.slug} href={`/games/${item.slug}`} className="similar-card">
-                <img src={item.image} alt={item.title} loading="lazy" className="similar-thumb" />
-                <span className="similar-title">{item.title}</span>
-              </Link>
-            ))}
-          </div>
-        </section>
-
-        <section className="detail-section">
           <h2 className="detail-subtitle">More 2 Player Games</h2>
           <div className="similar-grid">
             {moreGames.map((item) => (
