@@ -18,9 +18,10 @@ export function GameModal({ game, games, topFavoriteSlugs, onSelectGame, onClose
   }
   const iframeSrc = (() => {
     try {
-      const url = new URL(game.embedUrl);
-      url.searchParams.set('gd_sdk_referrer_url', window.location.href);
-      return url.toString();
+      const wrapped = new URL('https://embed.gamedistribution.com/');
+      wrapped.searchParams.set('url', game.embedUrl);
+      wrapped.searchParams.set('gd_sdk_referrer_url', window.location.href);
+      return wrapped.toString();
     } catch {
       return game.embedUrl;
     }

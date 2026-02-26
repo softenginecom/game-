@@ -11,8 +11,10 @@ type GamePlayerSectionProps = {
 function withSdkReferrerUrl(embedUrl: string, referrerUrl: string): string {
   try {
     const url = new URL(embedUrl);
-    url.searchParams.set('gd_sdk_referrer_url', referrerUrl);
-    return url.toString();
+    const wrapped = new URL('https://embed.gamedistribution.com/');
+    wrapped.searchParams.set('url', url.toString());
+    wrapped.searchParams.set('gd_sdk_referrer_url', referrerUrl);
+    return wrapped.toString();
   } catch {
     const separator = embedUrl.includes('?') ? '&' : '?';
     return `${embedUrl}${separator}gd_sdk_referrer_url=${encodeURIComponent(referrerUrl)}`;
